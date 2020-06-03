@@ -17,5 +17,5 @@ jobs:
           host: sftp.wp.com
           user: getoutsideca.wordpress.com
           password: ${{ secrets.SFTP_PASSWORD }}
-          remote_path: /htdocs
+          remote_path: ./
           ignore: .github/**
