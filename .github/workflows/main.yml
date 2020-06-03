@@ -12,7 +12,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
-          ftp-server: sftp://sftp.wp.com:22/
+          ftp-server: sftp://sftp.wp.com:22/wp-content
           ftp-username: getoutsideca.wordpress.com
           ftp-password: ${{ secrets.SFTP_PASSWORD }}
           git-ftp-args: --insecure # if your certificate is setup correctly this can be removed (see known-hosts argument)
