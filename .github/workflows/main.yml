@@ -1,18 +1,21 @@
-on: push
-name: Publish Website over SFTP
-jobs:
-  FTP-Deploy-Action:
-    name: FTP-Deploy-Action
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2.1.0
-        with:
-          fetch-depth: 2
+on:
+  push:
+    branches: [ master ]
 
-      - name: FTP-Deploy-Action
-        uses: SamKirkland/FTP-Deploy-Action@3.1.1
+jobs:
+  deploy_job:
+    runs-on: ubuntu-latest
+    name: deploy
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
         with:
-          ftp-server: sftp://sftp.wp.com:22
-          ftp-username: getoutsideca.wordpress.com
-          ftp-password: ${{ secrets.SFTP_PASSWORD }}
-          git-ftp-args: --insecure # if your certificate is setup correctly this can be removed (see known-hosts argument)
+          fetch-depth: 0
+      - name: deploy file
+        uses:  swznd/sftp-deploy@master
+        with:
+          host: sftp.wp.com
+          user: getoutsideca.wordpress.com
+          password: ${{ secrets.SFTP_PASSWORD }}
+          remote_path: /htdocs
+          ignore: .github/**
